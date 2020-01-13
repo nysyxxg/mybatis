@@ -31,4 +31,6 @@
     <mappers>
         <package name="com.gethin.mapper"/>
     </mappers>
+
+
 </configuration>

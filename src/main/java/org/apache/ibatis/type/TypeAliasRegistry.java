@@ -42,7 +42,9 @@ import org.apache.ibatis.io.Resources;
 public class TypeAliasRegistry {
 
   private final Map<String, Class<?>> TYPE_ALIASES = new HashMap<String, Class<?>>();
-
+  // 从Configuration构造器和 protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
+  // 可以看出，所有我们在mybatis-config和mapper文件中使用的类似int/string/JDBC/POOLED等字面常量
+  // 最终解析为具体的java类型都是在typeAliasRegistry构造器和Configuration构造器执行期间初始化的。下面我们来每块分析。
   public TypeAliasRegistry() {
 		//构造函数里注册系统内置的类型别名
     registerAlias("string", String.class);

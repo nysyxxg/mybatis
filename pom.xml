@@ -23,7 +23,7 @@
         <artifactId>mybatis-parent</artifactId>
         <version>32-SNAPSHOT</version>
     </parent>
-
+    <groupId>org.mybatis</groupId>
     <artifactId>mybatis</artifactId>
     <version>3.3.0-SNAPSHOT</version>
     <packaging>jar</packaging>

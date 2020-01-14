@@ -60,7 +60,7 @@ public class DefaultSqlSession implements SqlSession {
     this.dirty = false;
     this.autoCommit = autoCommit;
   }
-
+  // Executor 四大对象之一：在这里进行初始化
   public DefaultSqlSession(Configuration configuration, Executor executor) {
     this(configuration, executor, false);
   }

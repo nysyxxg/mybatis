@@ -124,12 +124,12 @@ public class XMLConfigBuilder extends BaseBuilder {
 //  </mappers>
 //  </configuration>
 
-    //根节点是configuration
+    //根节点是configuration   解析mybatis-config.xml 中 /configuration 节点
     parseConfiguration(parser.evalNode("/configuration"));
     return configuration;
   }
 
-  //解析配置
+  //解析配置文件 ： mybatis-config.xml
   private void parseConfiguration(XNode root) {
     try {
       //分步骤解析

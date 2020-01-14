@@ -24,8 +24,8 @@ import java.util.List;
  * @author Clinton Begin
  */
 /**
- * 结果集处理器
- *
+ * 结果集处理器 ResultSetHandler:
+ * 负责将JDBC返回的ResultSet结果集对象转换成List类型的集合；
  */
 public interface ResultSetHandler {
 

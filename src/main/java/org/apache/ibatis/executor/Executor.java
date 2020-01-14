@@ -30,7 +30,8 @@ import org.apache.ibatis.transaction.Transaction;
  * @author Clinton Begin
  */
 /**
- * 执行器
+ * 执行器 Executor :
+ *  MyBatis执行器， Executor是MyBatis 调度的核心，负责SQL语句的生成和查询缓存的维护
  *
  */
 public interface Executor {

@@ -29,7 +29,8 @@ import org.apache.ibatis.session.ResultHandler;
  */
 /**
  * 语句处理器
- *
+ *  StatementHandler :
+ *  封装了JDBC Statement操作，负责对JDBC statement 的操作，如设置参数、将Statement结果集转换成List集合。
  */
 public interface StatementHandler {
 

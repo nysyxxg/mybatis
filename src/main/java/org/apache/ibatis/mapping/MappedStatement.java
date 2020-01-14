@@ -32,7 +32,8 @@ import org.apache.ibatis.session.Configuration;
  * @author Clinton Begin
  */
 /**
- * 映射的语句
+ * 映射的语句  MappedStatement :
+ * MappedStatement维护了一条<select|update|delete|insert>节点的封装，
  *
  */
 public final class MappedStatement {

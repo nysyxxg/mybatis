@@ -59,7 +59,7 @@ public abstract class BaseExecutor implements Executor {
     //延迟加载队列（线程安全）
     protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
     //本地缓存机制（Local Cache）防止循环引用（circular references）和加速重复嵌套查询(一级缓存)
-    //本地缓存
+    //本地缓存: 一级缓存
     protected PerpetualCache localCache;
     //本地输出参数缓存
     protected PerpetualCache localOutputParameterCache;
@@ -149,7 +149,7 @@ public abstract class BaseExecutor implements Executor {
         //查询
         return query(ms, parameter, rowBounds, resultHandler, key, boundSql);
     }
-
+   // SimplyExecutor的父类BaseExecutor类
     @SuppressWarnings("unchecked")
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
@@ -167,12 +167,13 @@ public abstract class BaseExecutor implements Executor {
             //加一,这样递归调用到上面的时候就不会再清局部缓存了
             queryStack++;
             //先根据cachekey从localCache去查
+            // localCache是一级缓存，如果找不到就调用queryFromDatabase从数据库中查找
             list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
             if (list != null) {
                 //若查到localCache缓存，处理localOutputParameterCache
                 handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
             } else {
-                //从数据库查
+                //从数据库查，  因为是第一次SQL查询操作，所以会调用queryFromDatabase方法来执行查询。
                 list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
             }
         } finally {
@@ -329,7 +330,6 @@ public abstract class BaseExecutor implements Executor {
             }
         }
     }
-
     //从数据库查
     private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
         List<E> list;

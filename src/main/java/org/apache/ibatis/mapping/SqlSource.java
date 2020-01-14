@@ -22,7 +22,8 @@ package org.apache.ibatis.mapping;
  * @author Clinton Begin
  */
 /**
- * SQL源码
+ * SQL源码 SqlSource :
+ * 负责根据用户传递的parameterObject，动态地生成SQL语句，将信息封装到BoundSql对象中，并返回
  *
  */
 public interface SqlSource {

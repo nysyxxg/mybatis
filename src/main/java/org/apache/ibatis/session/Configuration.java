@@ -91,7 +91,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
  * @author Clinton Begin
  */
 /**
- * 配置，里面好多配置项
+ *  配置，里面好多配置项  Configuration: MyBatis所有的配置信息都维持在Configuration对象之中。
  * 　mybatis中所有环境配置、resultMap集合、sql语句集合、插件列表、缓存、加载的xml列表、类型别名、类型处理器等全部都维护在Configuration中。
  */
 public class Configuration {

@@ -84,9 +84,11 @@ public class CachingExecutor implements Executor {
 
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+        // 获取绑定的sql命令，比如"SELECT * FROM xxx"
         BoundSql boundSql = ms.getBoundSql(parameterObject);
         //query时传入一个cachekey参数
         CacheKey key = createCacheKey(ms, parameterObject, rowBounds, boundSql);
+        //  getBoundSql为了获取绑定的sql命令，在创建完cacheKey之后，就进入到CachingExecutor 类中的另一个query方法中。
         return query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
     }
 
@@ -113,6 +115,7 @@ public class CachingExecutor implements Executor {
                 return list;
             }
         }
+        //  这里真正执行query操作的是SimplyExecutor代理来完成的，接着就进入到了SimplyExecutor的父类BaseExecutor的query方法中。
         return delegate.<E>query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
     }
 

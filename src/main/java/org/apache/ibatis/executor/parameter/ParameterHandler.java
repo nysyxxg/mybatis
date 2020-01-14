@@ -24,7 +24,8 @@ import java.sql.SQLException;
  * @author Clinton Begin
  */
 /**
- * 参数处理器
+ * 参数处理器 ParameterHandler :
+ * 负责对用户传递的参数转换成JDBC Statement 所需要的参数，
  *
  */
 public interface ParameterHandler {

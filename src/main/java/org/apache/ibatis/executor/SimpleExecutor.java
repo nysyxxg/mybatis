@@ -61,7 +61,7 @@ public class SimpleExecutor extends BaseExecutor {
     }
   }
 
-  //select
+  //select  从数据库中查询数据，进入到SimplyExecutor中进行操作。
   @Override
   public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
     Statement stmt = null;
@@ -70,9 +70,11 @@ public class SimpleExecutor extends BaseExecutor {
       //新建一个StatementHandler
       //这里看到ResultHandler传入了
       StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
-      //准备语句
+      //准备语句          // 子流程1：SQL查询参数的设置
       stmt = prepareStatement(handler, ms.getStatementLog());
       //StatementHandler.query
+      // StatementHandler封装了Statement
+      // 子流程2：SQL查询操作和结果集的封装
       return handler.<E>query(stmt, resultHandler);
     } finally {
       closeStatement(stmt);

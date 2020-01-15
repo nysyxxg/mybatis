@@ -59,9 +59,9 @@ public class BindingTest {
 
     @BeforeClass
     public static void setup() throws Exception {
-        DataSource dataSource = BaseDataTest.createBlogDataSource();
-        BaseDataTest.runScript(dataSource, BaseDataTest.BLOG_DDL);
-        BaseDataTest.runScript(dataSource, BaseDataTest.BLOG_DATA);
+        DataSource dataSource = BaseDataTest.createBlogDataSource2();
+//        BaseDataTest.runScript(dataSource, BaseDataTest.BLOG_DDL);
+//        BaseDataTest.runScript(dataSource, BaseDataTest.BLOG_DATA);
 
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("Production", transactionFactory, dataSource);
@@ -84,11 +84,13 @@ public class BindingTest {
             Blog b = mapper.selectBlogWithPostsUsingSubSelect(1);
             assertEquals(1, b.getId());
             session.close();
-            assertNotNull(b.getAuthor());
-            assertEquals(101, b.getAuthor().getId());
-            assertEquals("jim", b.getAuthor().getUsername());
-            assertEquals("********", b.getAuthor().getPassword());
-            assertEquals(2, b.getPosts().size());
+            Author author = b.getAuthor();
+            assertNotNull(author);
+            assertEquals(101, author.getId());
+            assertEquals("jim", author.getUsername());
+            assertEquals("********", author.getPassword());
+            List<Post> postList = b.getPosts();
+            assertEquals(2, postList.size());
         } finally {
             session.close();
         }
@@ -104,6 +106,9 @@ public class BindingTest {
                 add(3);
                 add(5);
             }});
+            for(Post  post:posts){
+                System.out.println(post);
+            }
             assertEquals(3, posts.size());
             session.rollback();
         } finally {
@@ -118,8 +123,11 @@ public class BindingTest {
             BoundAuthorMapper mapper = session.getMapper(BoundAuthorMapper.class);
             Integer[] params = new Integer[]{1, 3, 5};
             List<Post> posts = mapper.findPostsInArray(params);
+            for(Post  post:posts){
+                System.out.println(post);
+            }
             assertEquals(3, posts.size());
-            session.rollback();
+            session.rollback(); // 事务回滚
         } finally {
             session.close();
         }
@@ -130,7 +138,10 @@ public class BindingTest {
         SqlSession session = sqlSessionFactory.openSession();
         try {
             BoundAuthorMapper mapper = session.getMapper(BoundAuthorMapper.class);
-            List<Post> posts = mapper.findThreeSpecificPosts(1, new RowBounds(1, 1), 3, 5);
+            List<Post> posts = mapper.findThreeSpecificPosts(1,
+                                                         new RowBounds(1, 1),
+                                                            3,
+                                                           5);
             assertEquals(1, posts.size());
             assertEquals(3, posts.get(0).getId());
             session.rollback();
@@ -704,10 +715,12 @@ public class BindingTest {
             BoundBlogMapper mapper = session.getMapper(BoundBlogMapper.class);
             List<Blog> blogs = mapper.selectBlogsWithAutorAndPosts();
             assertEquals(2, blogs.size());
+
             assertTrue(blogs.get(0) instanceof Proxy);
             assertEquals(101, blogs.get(0).getAuthor().getId());
             assertEquals(1, blogs.get(0).getPosts().size());
             assertEquals(1, blogs.get(0).getPosts().get(0).getId());
+
             assertTrue(blogs.get(1) instanceof Proxy);
             assertEquals(102, blogs.get(1).getAuthor().getId());
             assertEquals(1, blogs.get(1).getPosts().size());
@@ -724,10 +737,12 @@ public class BindingTest {
             BoundBlogMapper mapper = session.getMapper(BoundBlogMapper.class);
             List<Blog> blogs = mapper.selectBlogsWithAutorAndPostsEagerly();
             assertEquals(2, blogs.size());
+
             assertFalse(blogs.get(0) instanceof Factory);
             assertEquals(101, blogs.get(0).getAuthor().getId());
             assertEquals(1, blogs.get(0).getPosts().size());
             assertEquals(1, blogs.get(0).getPosts().get(0).getId());
+
             assertFalse(blogs.get(1) instanceof Factory);
             assertEquals(102, blogs.get(1).getAuthor().getId());
             assertEquals(1, blogs.get(1).getPosts().size());

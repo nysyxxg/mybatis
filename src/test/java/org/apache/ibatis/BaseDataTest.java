@@ -95,6 +95,11 @@ public abstract class BaseDataTest {
         return ds;
     }
 
+    public static DataSource createBlogDataSource2() throws IOException, SQLException {
+        DataSource ds = createUnpooledDataSource(BLOG_PROPERTIES);
+        return ds;
+    }
+
     public static DataSource createJPetstoreDataSource() throws IOException, SQLException {
         DataSource ds = createUnpooledDataSource(JPETSTORE_PROPERTIES);
         runScript(ds, JPETSTORE_DDL);

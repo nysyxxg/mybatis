@@ -21,6 +21,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- namespace  命名空间丢失，也错造成配置解析失败 -->
 <mapper>
 
   <select id="get" resultType="string">

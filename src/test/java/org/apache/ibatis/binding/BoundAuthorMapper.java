@@ -27,21 +27,18 @@ import java.util.List;
 public interface BoundAuthorMapper {
 
   //======================================================
-
   List<Post> findPostsInArray(Integer[] ids);
 
   //======================================================
-
   List<Post> findPostsInList(List<Integer> ids);
 
   //======================================================
-
   int insertAuthor(Author author);
 
+  //======================================================
   int insertAuthorDynamic(Author author);
 
   //======================================================
-
   @ConstructorArgs({
       @Arg(column = "AUTHOR_ID", javaType = int.class)
   })
@@ -58,11 +55,10 @@ public interface BoundAuthorMapper {
       "  PASSWORD as AUTHOR_PASSWORD,",
       "  EMAIL as AUTHOR_EMAIL,",
       "  BIO as AUTHOR_BIO",
-      "FROM AUTHOR WHERE ID = #{id}"})
+      "FROM author WHERE ID = #{id}"})
   Author selectAuthor(int id);
 
   //======================================================
-
   @ConstructorArgs({
       @Arg(column = "AUTHOR_ID", javaType = Integer.class),
       @Arg(column = "AUTHOR_USERNAME", javaType = String.class),
@@ -79,11 +75,10 @@ public interface BoundAuthorMapper {
       "  EMAIL as AUTHOR_EMAIL,",
       "  BIO as AUTHOR_BIO," +
           "  FAVOURITE_SECTION as AUTHOR_SECTION",
-      "FROM AUTHOR WHERE ID = #{id}"})
+      "FROM author WHERE ID = #{id}"})
   Author selectAuthorConstructor(int id);
 
   //======================================================
-
   List<Post> findThreeSpecificPosts(@Param("one") int one,
                                     RowBounds rowBounds,
                                     @Param("two") int two,

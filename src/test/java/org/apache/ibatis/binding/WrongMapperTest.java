@@ -20,10 +20,12 @@ import org.junit.Test;
 
 public class WrongMapperTest {
 
-  @Test(expected = RuntimeException.class)
-  public void shouldFailForBothOneAndMany() throws Exception {
-    Configuration configuration = new Configuration();
-    configuration.addMapper(MapperWithOneAndMany.class);
-  }
+    @Test(expected = RuntimeException.class)
+    public void shouldFailForBothOneAndMany() throws Exception {
+        Configuration configuration = new Configuration();
+//        configuration.addMapper(MapperWithOneAndMany.class);
+        configuration.addMapper(MapperWithOne.class);
+//        configuration.addMapper(MapperWithMany.class);
+    }
 
 }

@@ -20,17 +20,26 @@ import org.junit.Test;
 
 public class WrongNamespacesTest {
 
-  @Test(expected=RuntimeException.class)
-  public void shouldFailForWrongNamespace() throws Exception {
-    Configuration configuration = new Configuration();
-    configuration.addMapper(WrongNamespaceMapper.class);
-  }
+    /**
+     * 因为配置文件【错误的命名空间】配置，导致注册映射关系失败
+     * @throws Exception
+     */
+    @Test(expected = RuntimeException.class)
+    public void shouldFailForWrongNamespace() throws Exception {
+        Configuration configuration = new Configuration();
+        configuration.addMapper(WrongNamespaceMapper.class);
 
-  @Test(expected=RuntimeException.class)
-  public void shouldFailForMissingNamespace() throws Exception {
-    Configuration configuration = new Configuration();
-    configuration.addMapper(MissingNamespaceMapper.class);
-  }
+    }
+
+    /**
+     * 命名空间缺少，造成配置文件解析失败
+     * @throws Exception
+     */
+    @Test(expected = RuntimeException.class)
+    public void shouldFailForMissingNamespace() throws Exception {
+        Configuration configuration = new Configuration();
+        configuration.addMapper(MissingNamespaceMapper.class);
+    }
 
 
 }

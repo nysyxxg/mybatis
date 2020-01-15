@@ -48,7 +48,7 @@ author_id   INT NOT NULL,
 created_on  TIMESTAMP NOT NULL,
 section     VARCHAR(25) NOT NULL,
 subject     VARCHAR(255) NOT NULL,
-body        CLOB NOT NULL,
+body        TEXT NOT NULL,
 draft       INT NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (blog_id) REFERENCES blog(id)

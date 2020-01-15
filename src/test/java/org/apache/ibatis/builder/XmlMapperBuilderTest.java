@@ -94,6 +94,10 @@ public class XmlMapperBuilderTest {
         }
     }
 
+    /**
+     * 配置文件只能被加载一次
+     * @throws Exception
+     */
     @Test
     public void shouldNotLoadTheSameNamespaceFromTwoResourcesWithDifferentNames() throws Exception {
         Configuration configuration = new Configuration();

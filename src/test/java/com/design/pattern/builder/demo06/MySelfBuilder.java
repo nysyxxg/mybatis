@@ -5,7 +5,8 @@ import com.design.pattern.builder.demo05.Reservation;
 import java.util.Date;
 
 /**
- * 构建者需要实现的接口
+ * 构建者模式：
+ * 需要实现的接口
  */
 public interface MySelfBuilder {
     

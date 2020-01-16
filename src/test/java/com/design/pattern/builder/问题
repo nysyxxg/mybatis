@@ -1,0 +1,14 @@
+考虑这样一个场景，假如有一个类User，里面有很多属性，
+并且你希望这些类的属性都是不可变的(final)，就像下面的代码：
+
+public class User {
+
+    private final String firstName;     // 必传参数
+    private final String lastName;      // 必传参数
+    private final int age;              // 可选参数
+    private final String phone;         // 可选参数
+    private final String address;       // 可选参数
+
+}
+在这个类中，有些参数是必要的，而有些参数是非必要的。就好比在注册用户时，
+用户的姓和名是必填的，而年龄、手机号和家庭地址等是非必需的。那么问题就来了，如何创建这个类的对象呢？

@@ -36,8 +36,8 @@ public class ScheduledCache implements Cache {
   public ScheduledCache(Cache delegate) {
     this.delegate = delegate;
     //1小时清空一次缓存
-    this.clearInterval = 60 * 60 * 1000; // 1 hour
-    this.lastClear = System.currentTimeMillis();
+    this.clearInterval = 60 * 60 * 1000; // 1 hour      //1. 指定多久清理一次缓存
+    this.lastClear = System.currentTimeMillis();      //2. 设置初始值
   }
 
   public void setClearInterval(long clearInterval) {
@@ -74,8 +74,8 @@ public class ScheduledCache implements Cache {
 
   @Override
   public void clear() {
-    lastClear = System.currentTimeMillis();
-    delegate.clear();
+    lastClear = System.currentTimeMillis();    //1. 记录最近删除一次时间戳
+    delegate.clear();    //2. 清理掉缓存信息
   }
 
   @Override
@@ -92,7 +92,7 @@ public class ScheduledCache implements Cache {
   public boolean equals(Object obj) {
     return delegate.equals(obj);
   }
-
+  //1. 当前时间 - 最后清理时间,如果大于定时删除时间,说明要执行清理了。
   private boolean clearWhenStale() {
     //如果到时间了，清空一下缓存
     if (System.currentTimeMillis() - lastClear > clearInterval) {

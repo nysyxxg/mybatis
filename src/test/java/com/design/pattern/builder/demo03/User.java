@@ -13,6 +13,7 @@ public class User {
     private final String phone;         // 可选参数
     private final String address;       // 可选参数
 
+    // private 私有的构造方法，不能使用new
     private User(UserBuilder builder) {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;

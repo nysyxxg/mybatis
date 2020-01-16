@@ -1,0 +1,6 @@
+二.使用例子
+Demo：比如有一段预约信息，将其解析为  预约 对象；
+预约信息如下："Date, November 5, Headcount, 250, City, Shanghai, DollarsPerHead, 60,HasSite, false"；
+
+date为预约日期，headCount为预期来人数，city为城市，DollarsPerHead为人均预算，
+hasSite为是否提供地址(比如预约某场演出，是否给表演者提供地点

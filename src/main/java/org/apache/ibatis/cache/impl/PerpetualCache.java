@@ -35,7 +35,7 @@ public class PerpetualCache implements Cache {
     //每个永久缓存有一个ID来识别
   private String id;
 
-  //内部就是一个HashMap,所有方法基本就是直接调用HashMap的方法,不支持多线程？
+  //内部就是一个HashMap,所有方法基本就是直接调用HashMap的方法,不支持多线程???
   private Map<Object, Object> cache = new HashMap<Object, Object>();
 
   public PerpetualCache(String id) {
@@ -54,11 +54,13 @@ public class PerpetualCache implements Cache {
 
   @Override
   public void putObject(Object key, Object value) {
+    System.out.println("putObject-->" + PerpetualCache.class.getName());
     cache.put(key, value);
   }
 
   @Override
   public Object getObject(Object key) {
+    System.out.println("getObject-->" + PerpetualCache.class.getName());
     return cache.get(key);
   }
 
@@ -73,7 +75,7 @@ public class PerpetualCache implements Cache {
   }
 
   @Override
-  public ReadWriteLock getReadWriteLock() {
+  public ReadWriteLock getReadWriteLock() {  // 基本没啥用,外层谁要用,谁重写
     return null;
   }
 

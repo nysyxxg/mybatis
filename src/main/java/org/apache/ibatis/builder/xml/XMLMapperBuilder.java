@@ -81,8 +81,7 @@ public class XMLMapperBuilder extends BaseBuilder {
   }
 
   public XMLMapperBuilder(InputStream inputStream, Configuration configuration, String resource, Map<String, XNode> sqlFragments) {
-    this(new XPathParser(inputStream, true, configuration.getVariables(), new XMLMapperEntityResolver()),
-        configuration, resource, sqlFragments);
+    this(new XPathParser(inputStream, true, configuration.getVariables(), new XMLMapperEntityResolver()), configuration, resource, sqlFragments);
   }
 
   private XMLMapperBuilder(XPathParser parser, Configuration configuration, String resource, Map<String, XNode> sqlFragments) {

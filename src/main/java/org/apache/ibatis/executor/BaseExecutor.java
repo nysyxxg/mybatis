@@ -48,6 +48,12 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
  * 执行器基类
+ * 一级缓存就是在实现BaseExecutor 这个类 中实现的。
+ * 看到这里不由己提一个面试题,面试官会问你知道Mybatis 的一级缓存吗?
+ * 一般都会说Mybatis 的一级缓存就是 SqlSession 自带的缓存,这么说也对就是太笼统了，
+ * 因为 SqlSession其实就是生成 Executor 而一级缓存就是里面query方法中的 localCache。
+ *  这个时候我们就要看下了localCache 究竟是什么?
+ * 看一下构造,突然豁然开朗。原来PerpetualCache 就是一级缓存的实现
  */
 public abstract class BaseExecutor implements Executor {
 
@@ -168,6 +174,7 @@ public abstract class BaseExecutor implements Executor {
             queryStack++;
             //先根据cachekey从localCache去查
             // localCache是一级缓存，如果找不到就调用queryFromDatabase从数据库中查找
+            // 所有的查询都先从一级缓存中查询
             list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
             if (list != null) {
                 //若查到localCache缓存，处理localOutputParameterCache
@@ -342,7 +349,7 @@ public abstract class BaseExecutor implements Executor {
             localCache.removeObject(key);
         }
         //加入缓存
-        // 保存到一级缓存中
+        // 保存到一级缓存中, 从db里面查询都会放在一级缓存中
         localCache.putObject(key, list);
         //如果是存储过程，OUT参数也加入缓存
         if (ms.getStatementType() == StatementType.CALLABLE) {      // 这个是存储过程的  不用管

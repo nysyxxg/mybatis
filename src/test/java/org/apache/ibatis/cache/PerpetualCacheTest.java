@@ -24,6 +24,16 @@ import org.junit.Test;
 public class PerpetualCacheTest {
 
   @Test
+  public void shouldPerpetualCache() {
+    Cache cache = new PerpetualCache("default");
+    for (int i = 0; i < 100000; i++) {
+      cache.putObject(i, i);
+      assertEquals(i, cache.getObject(i));
+    }
+    assertEquals(100000, cache.getSize());
+  }
+
+  @Test
   public void shouldDemonstrateHowAllObjectsAreKept() {
     Cache cache = new PerpetualCache("default");
     cache = new SynchronizedCache(cache);

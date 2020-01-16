@@ -33,6 +33,14 @@ public class BaseCacheTest {
   public void shouldDemonstrateEqualsAndHashCodeForVariousCacheTypes() {
     PerpetualCache cache = new PerpetualCache("test_cache");
     assertTrue(cache.equals(cache));
+    //  下面
+
+    System.out.println((cache.equals(new SynchronizedCache(cache))));
+    System.out.println((cache.equals(new SerializedCache(cache))));
+    System.out.println((cache.equals(new LoggingCache(cache))));
+    System.out.println((cache.equals(new ScheduledCache(cache))));
+
+
     assertTrue(cache.equals(new SynchronizedCache(cache)));
     assertTrue(cache.equals(new SerializedCache(cache)));
     assertTrue(cache.equals(new LoggingCache(cache)));
@@ -42,7 +50,7 @@ public class BaseCacheTest {
     assertEquals(cache.hashCode(), new SerializedCache(cache).hashCode());
     assertEquals(cache.hashCode(), new LoggingCache(cache).hashCode());
     assertEquals(cache.hashCode(), new ScheduledCache(cache).hashCode());
-
+    // 因为 他们的hashCode  一样，所以添加到set集合中，是同一个对象
     Set<Cache> caches = new HashSet<Cache>();
     caches.add(cache);
     caches.add(new SynchronizedCache(cache));

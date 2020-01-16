@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.impl.PerpetualCache;
 
 /**
  * Lru (first in, first out) cache decorator
@@ -81,6 +82,7 @@ public class LruCache implements Cache {
 
     @Override
     public void putObject(Object key, Object value) {
+        System.out.println("putObject-->" + LruCache.class.getName());
         delegate.putObject(key, value);//  每次put数据的时候，就会先去清理一次，删除最近最少使用的
         //增加新纪录后，判断是否要将最老元素移除
         cycleKeyList(key);
@@ -88,6 +90,7 @@ public class LruCache implements Cache {
 
     @Override
     public Object getObject(Object key) {
+        System.out.println("getObject-->" + LruCache.class.getName());
         //get的时候调用一下LinkedHashMap.get，让经常访问的值移动到链表末尾
         keyMap.get(key); //touch
         return delegate.getObject(key);

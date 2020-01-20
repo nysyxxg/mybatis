@@ -22,9 +22,10 @@ import java.util.List;
  */
 /**
  * choose SQL节点
- *
+ *  设计模式：组合模式
  */
 public class ChooseSqlNode implements SqlNode {
+  // 组合模式的使用
   private SqlNode defaultSqlNode;
   private List<SqlNode> ifSqlNodes;
 

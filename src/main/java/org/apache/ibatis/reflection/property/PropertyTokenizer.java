@@ -20,73 +20,77 @@ import java.util.Iterator;
 /**
  * @author Clinton Begin
  */
+
 /**
+ * 迭代器模式的应用：
  * 属性分解为标记，迭代子模式
  * 如person[0].birthdate.year，将依次取得person[0], birthdate, year
- *
  */
 public class PropertyTokenizer implements Iterable<PropertyTokenizer>, Iterator<PropertyTokenizer> {
-  //例子： person[0].birthdate.year
-  private String name; //person
-  private String indexedName; //person[0]
-  private String index; //0
-  private String children; //birthdate.year
+    //例子： person[0].birthdate.year
+    private String name; //person
+    private String indexedName; //person[0]
+    private String index; //0
+    private String children; //birthdate.year
 
-  public PropertyTokenizer(String fullname) {
-      //person[0].birthdate.year
-      //找.
-    int delim = fullname.indexOf('.');
-    if (delim > -1) {
-      name = fullname.substring(0, delim);
-      children = fullname.substring(delim + 1);
-    } else {
-        //找不到.的话，取全部部分
-      name = fullname;
-      children = null;
+    public PropertyTokenizer(String fullname) {
+        //person[0].birthdate.year
+        //找 .
+        int delim = fullname.indexOf('.');
+        if (delim > -1) {
+            name = fullname.substring(0, delim);
+            children = fullname.substring(delim + 1);
+        } else {
+            //找不到 .的话，取全部部分
+            name = fullname;
+            children = null;
+        }
+        indexedName = name;
+        //把中括号里的数字给解析出来
+        // 对name进行二次处理,去除“[...]”，并将方括号内的内容赋给index属性，如果name属性中包含“[]”的话
+        delim = name.indexOf('[');
+        if (delim > -1) {
+            // 先取index内容再截取name更为方便些，要不然还需要一个临时变量，需要三步才能实现
+            // 这里包含了一个前提：传入的参数如果有有[,则必然存在],并且是属性的最后一个字符
+            index = name.substring(delim + 1, name.length() - 1);
+            name = name.substring(0, delim);
+        }
     }
-    indexedName = name;
-    //把中括号里的数字给解析出来
-    delim = name.indexOf('[');
-    if (delim > -1) {
-      index = name.substring(delim + 1, name.length() - 1);
-      name = name.substring(0, delim);
+
+    public String getName() {
+        return name;
     }
-  }
 
-  public String getName() {
-    return name;
-  }
+    public String getIndex() {
+        return index;
+    }
 
-  public String getIndex() {
-    return index;
-  }
+    public String getIndexedName() {
+        return indexedName;
+    }
 
-  public String getIndexedName() {
-    return indexedName;
-  }
+    public String getChildren() {
+        return children;
+    }
 
-  public String getChildren() {
-    return children;
-  }
+    @Override
+    public boolean hasNext() {
+        return children != null;
+    }
 
-  @Override
-  public boolean hasNext() {
-    return children != null;
-  }
+    //取得下一个,非常简单，直接再通过儿子来new另外一个实例
+    @Override
+    public PropertyTokenizer next() {
+        return new PropertyTokenizer(children);
+    }
 
-  //取得下一个,非常简单，直接再通过儿子来new另外一个实例
-  @Override
-  public PropertyTokenizer next() {
-    return new PropertyTokenizer(children);
-  }
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException("Remove is not supported, as it has no meaning in the context of properties.");
+    }
 
-  @Override
-  public void remove() {
-    throw new UnsupportedOperationException("Remove is not supported, as it has no meaning in the context of properties.");
-  }
-
-  @Override
-  public Iterator<PropertyTokenizer> iterator() {
-    return this;
-  }
+    @Override
+    public Iterator<PropertyTokenizer> iterator() {
+        return this;
+    }
 }

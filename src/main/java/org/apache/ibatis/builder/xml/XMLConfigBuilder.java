@@ -384,7 +384,7 @@ public class XMLConfigBuilder extends BaseBuilder {
         if (isSpecifiedEnvironment(id)) {
           //7.1事务管理器
           TransactionFactory txFactory = transactionManagerElement(child.evalNode("transactionManager"));
-          //7.2数据源
+          //7.2数据源:  获取数据源，使用了 工厂模式
           DataSourceFactory dsFactory = dataSourceElement(child.evalNode("dataSource"));
           DataSource dataSource = dsFactory.getDataSource();
           Environment.Builder environmentBuilder = new Environment.Builder(id)
@@ -453,10 +453,10 @@ public class XMLConfigBuilder extends BaseBuilder {
 //</dataSource>
   private DataSourceFactory dataSourceElement(XNode context) throws Exception {
     if (context != null) {
-      String type = context.getStringAttribute("type");
-      Properties props = context.getChildrenAsProperties();
-		//根据type="POOLED"解析返回适当的DataSourceFactory
-      DataSourceFactory factory = (DataSourceFactory) resolveClass(type).newInstance();
+      String type = context.getStringAttribute("type");  // 读取XML中type的标签
+      Properties props = context.getChildrenAsProperties();   // 读取子节点作为配置
+		//根据type="POOLED"解析返回适当的DataSourceFactory，根据工厂，得到不同的数据源
+      DataSourceFactory factory = (DataSourceFactory) resolveClass(type).newInstance(); // 通过反射获取对象
       factory.setProperties(props);
       return factory;
     }

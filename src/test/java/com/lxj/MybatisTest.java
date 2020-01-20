@@ -36,6 +36,7 @@ public class MybatisTest {
 		 */
 		String resource = "mybatis-config.xml";
 		InputStream inputStream = Resources.getResourceAsStream(resource);
+
 		SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
 		SqlSessionFactory sqlSessionFactory = builder.build(inputStream);
 		return sqlSessionFactory;

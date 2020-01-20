@@ -65,8 +65,8 @@ public class MultipleDiscriminatorTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
         Person person = personMapper.get(1L);
-        Assert.assertNotNull("Person must not be null", person);
-        Assert.assertEquals("Person must be a director", Director.class, person.getClass());
+        Assert.assertNotNull("MyPersonService must not be null", person);
+        Assert.assertEquals("MyPersonService must be a director", Director.class, person.getClass());
       sqlSession.close();
     }
     @Test
@@ -74,8 +74,8 @@ public class MultipleDiscriminatorTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
         Person person = personMapper.get2(1L);
-        Assert.assertNotNull("Person must not be null", person);
-        Assert.assertEquals("Person must be a director", Director.class, person.getClass());
+        Assert.assertNotNull("MyPersonService must not be null", person);
+        Assert.assertEquals("MyPersonService must be a director", Director.class, person.getClass());
       sqlSession.close();
     }
     @Test(timeout=20000)

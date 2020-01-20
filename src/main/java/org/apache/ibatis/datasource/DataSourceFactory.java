@@ -21,16 +21,20 @@ import javax.sql.DataSource;
 /**
  * @author Clinton Begin
  */
+
 /**
  * 数据源工厂
  * 有三种内建的数据源类型 UNPOOLED POOLED JNDI
+ * 在MyBatis中获取DataSource时，我们将DataSource相关的数据封装到MyBatis的配置文件中，
+ * MyBatis在初始化时，会去读取配置文件中的信息。Mybatis会根据用户的在配置文件的配置，
+ * 动态的生成DataSource。生成Datasource的过程就使用了工厂模式。我们来看一下源码：
  */
-public interface DataSourceFactory {
+public interface DataSourceFactory {// 首先：有一个对工厂的抽象接口类
 
-  //设置属性,被XMLConfigBuilder所调用
-  void setProperties(Properties props);
+    //设置属性,被XMLConfigBuilder所调用
+    void setProperties(Properties props);
 
-  //生产数据源,直接得到javax.sql.DataSource
-  DataSource getDataSource();
+    //生产数据源,直接得到javax.sql.DataSource
+    DataSource getDataSource();
 
 }

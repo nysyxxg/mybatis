@@ -119,6 +119,10 @@ public abstract class BaseBuilder {
   }
 
   //根据别名解析Class,其实是去查看 类型别名注册/事务管理器别名
+//  再往后还有一些细节，最终我们发现，它是从一张别名表，通过别名表里的配置，去加载到相对应得类，而去创建对象的。
+//    typeAliasRegistry.registerAlias("JNDI", JndiDataSourceFactory.class);
+//    typeAliasRegistry.registerAlias("POOLED", PooledDataSourceFactory.class);
+//    typeAliasRegistry.registerAlias("UNPOOLED", UnpooledDataSourceFactory.class);
   protected Class<?> resolveClass(String alias) {
     if (alias == null) {
       return null;

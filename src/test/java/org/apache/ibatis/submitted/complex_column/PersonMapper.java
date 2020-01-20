@@ -26,7 +26,7 @@ public interface PersonMapper {
 
     @Select({
       "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName",
-      "FROM Person",
+      "FROM MyPersonService",
       "WHERE id = #{id,jdbcType=INTEGER}"
     })
     @ResultMap("personMapComplex")
@@ -34,7 +34,7 @@ public interface PersonMapper {
 
     @Select({
         "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName",
-        "FROM Person",
+        "FROM MyPersonService",
         "WHERE id = #{id,jdbcType=INTEGER}"
       })
     @ResultMap("org.apache.ibatis.submitted.complex_column.PersonMapper.personMapComplex")

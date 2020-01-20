@@ -21,6 +21,8 @@ package org.apache.ibatis.executor;
 
 /**
  * 错误上下文
+ * 设计模式：单例模式的应用
+ * ErrorContext是用在每个线程范围内的单例，用于记录该线程的执行环境错误信息
  */
 public class ErrorContext {
     // 获得 \n 不同的操作系统不一样
@@ -43,7 +45,7 @@ public class ErrorContext {
     //工厂方法，得到一个实例
     public static ErrorContext instance() {
         //因为是多线程，所以用了ThreadLocal  线程安全
-        ErrorContext context = LOCAL.get();
+        ErrorContext context = LOCAL.get(); // 先获取本线程的实例对象，如果没有，就创建本线程独有的实例对象ErrorContext
         //懒汉 单例模式
         if (context == null) {
             context = new ErrorContext();

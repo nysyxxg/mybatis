@@ -27,7 +27,7 @@ import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * PreparedStatement proxy to add logging
- *
+ *  动态代理模式的应用: 实现了 implements InvocationHandler  接口
  * @author Clinton Begin
  * @author Eduardo Macarron
  *

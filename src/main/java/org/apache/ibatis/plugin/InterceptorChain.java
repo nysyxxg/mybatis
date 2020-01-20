@@ -23,6 +23,7 @@ import java.util.List;
  * @author Clinton Begin
  */
 /**
+ *  责任链模式的应用
  * 拦截器链
  *
  */
@@ -31,7 +32,7 @@ public class InterceptorChain {
   //内部就是一个拦截器的List
   private final List<Interceptor> interceptors = new ArrayList<Interceptor>();
 
-  public Object pluginAll(Object target) {
+  public Object pluginAll(Object target) { // 传入一个对象，经过处理之后，还是返回这个对象
     //循环调用每个Interceptor.plugin方法
     for (Interceptor interceptor : interceptors) {
       target = interceptor.plugin(target);

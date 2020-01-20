@@ -32,7 +32,7 @@ import org.apache.ibatis.reflection.ExceptionUtil;
  * 插件,用的代理模式
  *
  */
-public class Plugin implements InvocationHandler {
+public class Plugin implements InvocationHandler {  // 动态代理
 
   private Object target;
   private Interceptor interceptor;
@@ -43,7 +43,7 @@ public class Plugin implements InvocationHandler {
     this.interceptor = interceptor;
     this.signatureMap = signatureMap;
   }
-
+  //生成代理对象，这里有点特别是层层代理，代理对象又生成代理对象
   public static Object wrap(Object target, Interceptor interceptor) {
     //取得签名Map
     Map<Class<?>, Set<Method>> signatureMap = getSignatureMap(interceptor);
@@ -60,7 +60,7 @@ public class Plugin implements InvocationHandler {
     }
     return target;
   }
-
+  //代理对象真实调用方法
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {
@@ -68,8 +68,8 @@ public class Plugin implements InvocationHandler {
       Set<Method> methods = signatureMap.get(method.getDeclaringClass());
       //看哪些方法需要拦截
       if (methods != null && methods.contains(method)) {
-        //调用Interceptor.intercept，也即插入了我们自己的逻辑
-        return interceptor.intercept(new Invocation(target, method, args));
+        //调用Interceptor.intercept，也即插入了我们自己的逻辑,
+        return interceptor.intercept(new Invocation(target, method, args));//插件调用
       }
       //最后还是执行原来逻辑
       return method.invoke(target, args);

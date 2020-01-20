@@ -1,0 +1,25 @@
+MyBatis中文官网  http://www.mybatis.cn/
+底层 核心对象：
+1: SqlSessionFactoryBuilder
+2：SqlSessionFactory
+3：SqlSession
+4：Executor
+5：StatementHandler
+6：ParameterHandler
+7：ResultHandler
+
+具体可以分为以下几步：
+1、加载配置文件到Configuration
+2、构建SQlSessionFactory
+3、打开SqlSession会话
+4、Executor开始处理请求
+5、SqlSource解析Sql
+6、StatementHandler执行sql
+7、parameterHandler设置参数
+8、StatementHandler执行Sql
+9、ResultSetHandler处理结果集
+
+StatementHandler：处理sql语句预编译，设置参数等相关工作；
+ParameterHandler：设置预编译参数用的
+ResultSetHandler：       处理结果集
+TypeHandler：在整个过程中，进行数据库类型和javaBean类型的映射

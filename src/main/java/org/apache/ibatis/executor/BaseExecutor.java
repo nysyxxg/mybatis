@@ -47,7 +47,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
  */
 
 /**
- * 执行器基类
+ *  执行器基类
  * 一级缓存就是在实现BaseExecutor 这个类 中实现的。
  * 看到这里不由己提一个面试题,面试官会问你知道Mybatis 的一级缓存吗?
  * 一般都会说Mybatis 的一级缓存就是 SqlSession 自带的缓存,这么说也对就是太笼统了，
@@ -55,7 +55,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
  *  这个时候我们就要看下了localCache 究竟是什么?
  * 看一下构造,突然豁然开朗。原来PerpetualCache 就是一级缓存的实现
  */
-public abstract class BaseExecutor implements Executor {
+public abstract class BaseExecutor implements Executor {  // 模板模式
 
     private static final Log log = LogFactory.getLog(BaseExecutor.class);
 

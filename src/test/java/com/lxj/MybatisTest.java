@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MybatisTest {
- 
+
 	@Test
 	public void testMybatisSource() throws IOException {
 		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
@@ -26,9 +26,9 @@ public class MybatisTest {
 		}finally {
 			openSession.close();
 		}
-	
+
 	}
- 
+
 	private SqlSessionFactory getSqlSessionFactory() throws IOException {
 		/*
 		 * 1.加载mybatis的配置文件，初始化mybatis，创建出SqlSessionFactory，是创建SqlSession的工厂
@@ -41,5 +41,5 @@ public class MybatisTest {
 		SqlSessionFactory sqlSessionFactory = builder.build(inputStream);
 		return sqlSessionFactory;
 	}
- 
+
 }

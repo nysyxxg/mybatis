@@ -13,7 +13,7 @@ import com.design.pattern.Proxy.demo03.service.ZhiLiao;
  */
 public class TestMain {
 
-    public static void main(String[] args) {    
+    public static void main(String[] args) {
         BaseService xiaochan = BeanFactory.newInstance(ZhiLiao.class);
         xiaochan.eat();
     }

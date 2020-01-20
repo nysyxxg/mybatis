@@ -7,7 +7,7 @@ public class Test {
         classOne.addStudent(new Student("李四", 2));
         classOne.addStudent(new Student("王五", 3));
         classOne.addStudent(new Student("赵六", 4));
- 
+
         // 遍历，报数
         StudentIterator iterator = classOne.getStudentIterator();
         while (iterator.hashNext()){

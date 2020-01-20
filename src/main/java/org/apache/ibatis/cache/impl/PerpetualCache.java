@@ -28,6 +28,14 @@ import org.apache.ibatis.cache.CacheException;
 /**
  * 永久缓存
  * 一旦存入就一直保持
+ *  正如大多数持久层框架一样，mybatis缓存同样分为一级缓存和二级缓存
+ * 一级缓存，又叫本地缓存，是PerpetualCache类型的永久缓存，保存在执行器中（BaseExecutor），
+ *           而执行器又在SqlSession（DefaultSqlSession）中，所以一级缓存的生命周期与SqlSession是相同的。
+ * 二级缓存，又叫自定义缓存，实现了Cache接口的类都可以作为二级缓存，所以可配置如encache等的第三方缓存。
+ *          二级缓存以namespace名称空间为其唯一标识，被保存在Configuration核心配置对象中。
+ * 二级缓存对象的默认类型为PerpetualCache，如果配置的缓存是默认类型，则mybatis会根据配置自动追加一系列装饰器。
+ * Cache对象之间的引用顺序为：
+ * SynchronizedCache–>LoggingCache–>SerializedCache–>ScheduledCache–>LruCache–>PerpetualCache
  *
  */
 public class PerpetualCache implements Cache {
